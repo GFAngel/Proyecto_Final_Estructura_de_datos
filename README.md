@@ -45,7 +45,7 @@ void setup() {
 
 void draw() {
     system("cls");
-
+    
     for (int i =0; i < alto; i++) {
         for (int j =0; j < ancho; j++) {
             bool impreso = false;
@@ -64,7 +64,7 @@ void draw() {
             Nodo* temp = cabeza;
             while (temp != nullptr) {
                 if (temp->x==j && temp->y==i) {// Cuerpo de la serpiente
-                    cout<<(temp == cabeza?'^':'*');
+                    cout<<(temp == cabeza?'~':'~');
                     impreso=true;
                     break;
                 }
@@ -173,15 +173,6 @@ void limpiar() {
 }
 
 //buaca minas
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <ctime>
-#include <algorithm> 
-
-using namespace std;
-
 struct Pos {
     int fila;
     int columna;
@@ -195,7 +186,7 @@ struct Pos {
     }
 };
 
-// Funci�n para contar minas adyacentes
+// Funcion para contar minas adyacentes
 int contarMinasAdyacentes(const vector<Pos>& minas, int fila, int columna, int filas, int columnas) {
     int count = 0;
     for (int i = -1; i <= 1; ++i) {
@@ -223,11 +214,15 @@ void colocarMinas(vector<Pos>& minas, int filas, int columnas, size_t nminas) {
             minas.push_back(nueva);
         }
     }
-    sort(minas.begin(), minas.end()); // Necesario para b�squeda binaria
+    sort(minas.begin(), minas.end()); // Necesario para busqueda binaria
+    cout << "Posiciones de las minas: " << endl;
+    for (const auto& mina : minas) {
+        cout << "Fila: " << mina.fila << ", Columna: " << mina.columna << endl;
+    }
 }
 
 void revelarCasillasVacias(int fila, int columna, const vector<Pos>& minas, vector<Pos>& descubiertas, int filas, int columnas) {
-    // Verificar si la posici�n ya fue descubierta
+    // Verificar si la posicion ya fue descubierta
     if (find(descubiertas.begin(), descubiertas.end(), Pos{fila, columna}) != descubiertas.end()) {
         return;
     }
@@ -273,8 +268,8 @@ void setgame(int filas, int columnas, int nminas) {
     bool jugadorGano = false;
 
     while (!juegoTerminado) {
-        system("cls");
-        cout << "Numero de minas: " << nminas << " | Banderas restantes: " << nbanderas << " | Estado: " << estado << endl;
+ 
+        cout <<"Numero de minas(M) :" << nminas << " | Banderas restantes(F) : " << nbanderas << " | Estado: " << estado << endl;
 
         // Mostrar matriz oculta
         for (int i = 0; i < filas; i++) {
@@ -286,9 +281,9 @@ void setgame(int filas, int columnas, int nminas) {
                     } else {
                         int minasCerca = contarMinasAdyacentes(minas, i, j, filas, columnas);
                         if (minasCerca > 0) {
-                            cout << "[" << minasCerca << "]"; // n�mero de minas adyacentes
+                            cout << "[" << minasCerca << "]"; // numero de minas adyacentes
                         } else {
-                            cout << "[ ]"; // casilla vac�a sin minas cerca
+                            cout << "[ ]"; // casilla vacia sin minas cerca
                         }
                     }
                 } else if (matriz[i][j] == 'F') {
@@ -323,7 +318,7 @@ void setgame(int filas, int columnas, int nminas) {
         Pos seleccion = {x, y};
 
         if (op == 1) { // Buscar mina
-            // Verificar si ya est� descubierta o tiene bandera
+            // Verificar si ya esta descubierta o tiene bandera
             if (find(descubiertas.begin(), descubiertas.end(), seleccion) != descubiertas.end() || 
                 matriz[x][y] == 'F') {
                 continue;
@@ -337,7 +332,7 @@ void setgame(int filas, int columnas, int nminas) {
                     descubiertas.push_back(m);
                 }
             } else {
-                // Revelar casilla y posiblemente areas vac�as
+                // Revelar casilla y posiblemente areas vacias
                 revelarCasillasVacias(x, y, minas, descubiertas, filas, columnas);
             }
         } else if (op == 2) { // Colocar/Quitar bandera
@@ -391,7 +386,7 @@ void setgame(int filas, int columnas, int nminas) {
 
     system("cls");
     if (jugadorGano) {
-        cout << "�Has ganado! Estado: " << estado << endl;
+        cout << "Has ganado! Estado: " << estado << endl;
     } else {
         cout << "BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOM!!!!!!!! Has perdido. Estado: " << estado << endl;
     }

@@ -21,7 +21,7 @@ struct Nodo {//cuerpo de la serpiente
 };
 
 Nodo* cabeza=nullptr; // Inicio de la serpiente
-Nodo* cola nullptr;   // Final de la serpiente 
+Nodo* cola= nullptr;   // Final de la serpiente 
 
 int comidaX, comidaY;
 
@@ -33,7 +33,7 @@ void setup() {
     score = 0;
 
     
-    cabeza = new Nodo{ancho/2,alto/2, nullptr};//central la cabesa de la serpiente
+    cabeza = new Nodo{ancho / 2,alto/2, nullptr};//central la cabesa de la serpiente
     cola = cabeza;
     comidaX = rand() % (ancho - 2) + 1;//colocar la manzana en lugares ramdon y evitar que salga en los bordes
     comidaY = rand() % (alto - 2) + 1;
@@ -51,7 +51,7 @@ void draw() {
             }
 
             
-            if ( ==comidaY && j == comidaX) {// Comida
+            if (i ==comidaY && j == comidaX) {// Comida
                 cout<<"8";
                 continue;
             }
@@ -169,6 +169,8 @@ void limpiar() {
 }
 
 int main() {
+    
+
     setup();
     while(!gameover) {
         draw();
